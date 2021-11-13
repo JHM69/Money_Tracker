@@ -1,0 +1,1 @@
+package com.jhm69.money_tracker.interfaces;import androidx.annotation.IntDef;import java.lang.annotation.Retention;import java.lang.annotation.RetentionPolicy;@IntDef({IIncomesType.MODE_INCOME})@Retention(RetentionPolicy.SOURCE)public @interface IIncomesType{    int MODE_INCOME = 1;}

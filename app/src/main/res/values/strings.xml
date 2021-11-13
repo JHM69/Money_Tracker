@@ -1,0 +1,79 @@
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <string name="app_name">Expense Tracker</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Welcome-->
+
+    <!--General-->
+    <string name="expenses">Expenses</string>
+    <string name="income">Incomes</string>
+    <string name="categories">Categories</string>
+    <string name="statistics">Statistics</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="create_category">Create a Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="today">Today</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="error_total">Please enter a total</string>
+    <string name="description">Description</string>
+    <string name="add_new_expense">Add new Expense</string>
+    <string name="optional_description">Description (Optional)</string>
+    <string name="total">Total</string>
+    <string name="confirm_delete_items">Are you sure to delete this item(s)</string>
+    <string name="expense_prefix">- <xliff:g example="100.00" id="amount">%s</xliff:g></string>
+    <string name="income_prefix">+ <xliff:g example="100.00" id="amount">%s</xliff:g></string>
+    <string name="country_currency">Country Currency</string>
+    <string name="pref_country_key">country_key</string>
+    <string name="default_country">BD</string>
+    <string name="tv_title_transition">tvTotalTransition</string>
+    <string name="date_placeholder">date placeholder</string>
+    <string name="to_date">Date to</string>
+    <string name="date_from">Date from</string>
+    <string name="categories_percentage">Categories Percentage</string>
+    <string name="total_expenses_per_category">Total Expenses per category</string>
+    <string name="this_week">This week</string>
+    <string name="expense_detail">Expense Detail</string>
+    <string name="same_category_this_week">Same Category This Week</string>
+    <string name="reminders_empty">There are no reminders. Create them to remember important dates</string>
+    <string name="categories_empty">There are no categories yet. Start by creating some and be able to take advantage of the statistics.</string>
+    <string name="no_chart_data">No data available</string>
+    <string name="no_categories_error">Please create categories to start saving expenses</string>
+    <string name="today_expenses_total">Today: %s</string>
+    <string name="no_expenses_today">No expenses today</string>
+    <string name="hint_category">Eg. Food</string>
+    <string name="error_name">Please enter a name</string>
+    <string name="pick_dates">Pick a range of dates</string>
+    <string name="edit_category">Edit category</string>
+    <string name="history">History</string>
+    <string name="action_help">Help</string>
+
+    <!--Countries-->
+    <string-array name="countries_names" tools:ignore="InconsistentArrays">
+
+        <item>Bangladesh</item>
+
+    </string-array>
+
+    <string-array name="country_values" tools:ignore="InconsistentArrays">
+        <item>TK</item>
+    </string-array>
+
+    <string-array name="date_formats" tools:ignore="InconsistentArrays">
+        <item>MM/dd/yyyy</item>
+    </string-array>
+
+    <string name="title_activity_help">Help Activity</string>
+    <string name="help_text">You can delete Expenses, Categories and Reminders by holding an item and a menu will let you select one or more items to delete\n\nChoose the date you wish to create the expenses in the New Dialog Expense by tapping the date\n\nCreate reminders to set a notification for the specified date and hour.\n\nEdit Categories name by tapping the item once.\n\nAny doubts or ideas don\'t doubt to contact carrillochero6@gmail.com</string>
+    <string name="default_date_format">MM/dd/yyyy</string>
+    <string name="date_format_key">date_format_key</string>
+    <string name="date_format">Date Format</string>
+    <string name="export">Export</string>
+    <string name="write_external_message">Expense Tracker would like to create Files in order to export your expenses data</string>
+    <string name="ok">OK</string>
+    <string name="expenses_mail_content">Expenses Record by Expense Tracker</string>
+    <string name="share_title">Send your record to your mail</string>
+</resources>
