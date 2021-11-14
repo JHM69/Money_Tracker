@@ -50,6 +50,7 @@ import com.jhm69.money_tracker.utils.Util;
 import com.jhm69.money_tracker.widget.ExpensesWidgetProvider;
 import com.jhm69.money_tracker.widget.ExpensesWidgetService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -118,8 +119,8 @@ public class NewIncome extends DialogFragment implements View.OnClickListener{
 
     @SuppressLint("SetTextI18n")
     private void setModeViews() {
-        List<Category> categoriesList = Category.getCategoriesIncome();
-
+        List<Category> categoriesList  = new ArrayList<>();
+        Category.getCategoriesExpense();
         if(categoriesList.size()==0){
             Category category1 = new Category("Job", IIncomesType.MODE_INCOME);
             Category category2 = new Category("Business", IIncomesType.MODE_INCOME);

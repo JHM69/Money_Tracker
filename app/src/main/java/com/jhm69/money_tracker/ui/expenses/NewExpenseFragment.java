@@ -30,6 +30,7 @@ import com.jhm69.money_tracker.utils.Util;
 import com.jhm69.money_tracker.widget.ExpensesWidgetProvider;
 import com.jhm69.money_tracker.widget.ExpensesWidgetService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -95,7 +96,8 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
 
     @SuppressLint("SetTextI18n")
     private void setModeViews() {
-        List<Category> categoriesList = Category.getCategoriesExpense();
+        List<Category> categoriesList = new ArrayList<>();
+        Category.getCategoriesExpense();
         if(categoriesList.size()==0){
             Category category1 = new Category("Rent", IExpensesType.MODE_EXPENSES);
             Category category2 = new Category("Food", IExpensesType.MODE_EXPENSES);
