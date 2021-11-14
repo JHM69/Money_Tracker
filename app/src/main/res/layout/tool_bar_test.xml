@@ -9,62 +9,91 @@
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:theme="@style/AppTheme.AppBarOverlay"
+    app:contentInsetStart="0dp"
     app:popupTheme="@style/AppTheme.PopupOverlay"
     app:layout_scrollFlags="scroll|enterAlways">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_expense_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_25_10dp"
-        android:orientation="vertical"
+        android:layout_height="230dp"
+        android:gravity="center"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:gravity="center">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_5dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="5dp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toTopOf="@+id/tv_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="26/06/20" />
 
         <TextView
             android:id="@+id/tv_description"
             style="@style/ExpenseTrackerTextView"
-            android:layout_marginBottom="@dimen/dimen_15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/total"
+            android:textColor="#F8F8F8"
             android:textSize="@dimen/text_size_24"
-            android:textColor="@color/white9f"
-            android:text="@string/total"/>
+            app:layout_constraintBottom_toTopOf="@+id/ner"
+            app:layout_constraintEnd_toEndOf="@+id/tv_date"
+            app:layout_constraintStart_toStartOf="@+id/tv_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/ner"
             android:layout_width="wrap_content"
-            android:layout_height="46dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:clipToPadding="true"
             android:foreground="?selectableItemBackgroundBorderless"
             android:foregroundGravity="center"
             android:gravity="center"
             app:cardBackgroundColor="@color/primary_dark"
             app:cardCornerRadius="23dp"
-            app:cardPreventCornerOverlap="true">
+            app:cardPreventCornerOverlap="true"
+            app:layout_constraintEnd_toEndOf="@+id/tv_description"
+            app:layout_constraintStart_toStartOf="@+id/tv_description"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description">
 
             <TextView
                 android:id="@+id/tv_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="1dp"
-                android:foregroundGravity="center_vertical"
-                android:gravity="center|center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="sans-serif-condensed"
+                android:foregroundGravity="center"
+                android:gravity="center"
                 android:textColor="#ffffffff"
                 android:textSize="@dimen/text_size_35"
+                android:textStyle="bold"
                 tools:text="+000" />
         </androidx.cardview.widget.CardView>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ner"
+            app:layout_constraintStart_toStartOf="@+id/ner"
+            app:layout_constraintTop_toBottomOf="@+id/ner" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.appcompat.widget.Toolbar>

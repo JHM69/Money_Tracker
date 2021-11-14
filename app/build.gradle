@@ -41,4 +41,6 @@ dependencies {
     implementation 'io.realm:realm-android:0.82.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.1.4'
 
+
+
 }

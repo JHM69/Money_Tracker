@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import com.google.android.material.appbar.AppBarLayout;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +54,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public static final String NAVIGATION_POSITION = "navigation_position";
     @IDateMode int dateModes;
     private int mCurrentMode = NAVIGATION_MODE_STANDARD;
-    private int idSelectedNavigationItem=0;
 
     private DrawerLayout mainDrawerLayout;
     private NavigationView mainNavigationView;
@@ -62,11 +63,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private Category category;
     // Expenses Summary related views
-    private LinearLayout llExpensesSummary;
+    private ConstraintLayout llExpensesSummary;
     private TextView tvDate;
     private TextView tvDescription;
     @SuppressLint("StaticFieldLeak")
-    public static TextView TOTAL_TV;
+    public static TextView TOTAL_TV, stock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +96,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mainTabLayout = (TabLayout)findViewById(R.id.tab_layout);
         mainNavigationView = (NavigationView)findViewById(R.id.nav_view);
         mFloatingActionButton = (FloatingActionButton)findViewById(R.id.fab_main);
-        llExpensesSummary = (LinearLayout)findViewById(R.id.ll_expense_container);
+        llExpensesSummary = (ConstraintLayout) findViewById(R.id.ll_expense_container);
         tvDate = (TextView)findViewById(R.id.tv_date);
         tvDescription = (TextView)findViewById(R.id.tv_description);
         TOTAL_TV = (TextView)findViewById(R.id.tv_amount);
+        stock = (TextView)findViewById(R.id.stock);
     }
 
     private void setUpDrawer() {
@@ -119,26 +121,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        int idSelectedNavigationItem = 0;
         outState.putInt(NAVIGATION_POSITION, idSelectedNavigationItem);
         super.onSaveInstanceState(outState);
     }
@@ -177,26 +164,52 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void setExpensesSummary(@IDateMode int dateMode) {
-        float total = Expense.getTotalExpensesByDateMode(dateMode);
-        TOTAL_TV.setText(Util.getFormattedCurrency(total));
-        String date;
-        switch (dateMode) {
-            case IDateMode.MODE_TODAY:
-                date = Util.formatDateToString(DateUtils.getToday(), Util.getCurrentDateFormat());
-                break;
-            case IDateMode.MODE_WEEK:
-                date = Util.formatDateToString(DateUtils.getFirstDateOfCurrentWeek(), Util.getCurrentDateFormat()).concat(" - ").concat(Util.formatDateToString(DateUtils.getRealLastDateOfCurrentWeek(), Util.getCurrentDateFormat()));
-                break;
-            case IDateMode.MODE_MONTH:
-                date = Util.formatDateToString(DateUtils.getFirstDateOfCurrentMonth(), Util.getCurrentDateFormat()).concat(" - ").concat(Util.formatDateToString(DateUtils.getRealLastDateOfCurrentMonth(), Util.getCurrentDateFormat()));
-                break;
-            default:
-                date = "";
-                break;
+        float totalExpense = Expense.getTotalExpensesByDateMode(dateMode);
+        float totalIncome = Income.getTotalIncomesByDateMode(dateMode);
+        stock.setText("Stock Amount " + Util.getFormattedCurrency(totalIncome-totalExpense));
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_content);
+        if(currentFragment instanceof ExpensesContainerFragment) {
+            tvDescription.setText("Total Expenses");
+            TOTAL_TV.setText(Util.getFormattedCurrency(totalExpense));
+            String date;
+            switch (dateMode) {
+                case IDateMode.MODE_TODAY:
+                    date = Util.formatDateToString(DateUtils.getToday(), Util.getCurrentDateFormat());
+                    break;
+                case IDateMode.MODE_WEEK:
+                    date = Util.formatDateToString(DateUtils.getFirstDateOfCurrentWeek(), Util.getCurrentDateFormat()).concat(" - ").concat(Util.formatDateToString(DateUtils.getRealLastDateOfCurrentWeek(), Util.getCurrentDateFormat()));
+                    break;
+                case IDateMode.MODE_MONTH:
+                    date = Util.formatDateToString(DateUtils.getFirstDateOfCurrentMonth(), Util.getCurrentDateFormat()).concat(" - ").concat(Util.formatDateToString(DateUtils.getRealLastDateOfCurrentMonth(), Util.getCurrentDateFormat()));
+                    break;
+                default:
+                    date = "";
+                    break;
+            }
+            tvDate.setText(date);
+        }else if(currentFragment instanceof IncomesContainerFragment){
+            tvDescription.setText("Total Incomes");
+            TOTAL_TV.setText(Util.getFormattedCurrency(totalIncome));
+            String date;
+            switch (dateMode) {
+                case IDateMode.MODE_TODAY:
+                    date = Util.formatDateToString(DateUtils.getToday(), Util.getCurrentDateFormat());
+                    break;
+                case IDateMode.MODE_WEEK:
+                    date = Util.formatDateToString(DateUtils.getFirstDateOfCurrentWeek(), Util.getCurrentDateFormat()).concat(" - ").concat(Util.formatDateToString(DateUtils.getRealLastDateOfCurrentWeek(), Util.getCurrentDateFormat()));
+                    break;
+                case IDateMode.MODE_MONTH:
+                    date = Util.formatDateToString(DateUtils.getFirstDateOfCurrentMonth(), Util.getCurrentDateFormat()).concat(" - ").concat(Util.formatDateToString(DateUtils.getRealLastDateOfCurrentMonth(), Util.getCurrentDateFormat()));
+                    break;
+                default:
+                    date = "";
+                    break;
+            }
+            tvDate.setText(date);
         }
-        tvDate.setText(date);
     }
     
 
@@ -209,7 +222,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void setTitle(String title) {
-        getSupportActionBar().setTitle(title);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
 
     @Override
@@ -293,10 +306,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_content);
         switch (menuItemId) {
             case R.id.nav_expenses:
-                if (!(currentFragment instanceof ExpensesContainerFragment)) replaceFragment(ExpensesContainerFragment.newInstance(), false);
+                if (!(currentFragment instanceof ExpensesContainerFragment)) {
+                    replaceFragment(ExpensesContainerFragment.newInstance(), false);
+                }
                 break;
             case R.id.nav_income:
-                if (!(currentFragment instanceof  IncomeFragment)) replaceFragment(IncomesContainerFragment.newInstance(), false);
+                if (!(currentFragment instanceof  IncomeFragment)) {
+                    replaceFragment(IncomesContainerFragment.newInstance(), false);
+                }
                 break;
             case R.id.nav_categories:
                 if (!(currentFragment instanceof  CategoriesFragment)) replaceFragment(CategoriesFragment.newInstance(), false);

@@ -85,7 +85,7 @@ public class NewIncome extends DialogFragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_dialog_new_expense, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_dialog_new_income, container, false);
         tvTitle = (TextView)rootView.findViewById(R.id.tv_title);
         btnDate = (Button)rootView.findViewById(R.id.btn_date);
         spCategory = (Spinner)rootView.findViewById(R.id.sp_categories);
@@ -119,6 +119,21 @@ public class NewIncome extends DialogFragment implements View.OnClickListener{
     @SuppressLint("SetTextI18n")
     private void setModeViews() {
         List<Category> categoriesList = Category.getCategoriesIncome();
+
+        if(categoriesList.size()==0){
+            Category category1 = new Category("Job", IIncomesType.MODE_INCOME);
+            Category category2 = new Category("Business", IIncomesType.MODE_INCOME);
+            Category category3 = new Category("Scholarship", IIncomesType.MODE_INCOME);
+
+            categoriesList.add(category1);
+            categoriesList.add(category2);
+            categoriesList.add(category3);
+
+            RealmManager.getInstance().save(category1, Category.class);
+            RealmManager.getInstance().save(category2, Category.class);
+            RealmManager.getInstance().save(category3, Category.class);
+        }
+
         Category[] categoriesArray = new Category[categoriesList.size()];
         categoriesArray = categoriesList.toArray(categoriesArray);
         mCategoriesSpinnerAdapter = new CategoriesSpinnerAdapter(getActivity(), categoriesArray);

@@ -35,8 +35,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_edit_black_24dp" />
-                            <entry key="sourceFile" value="E:\Downloads\edit_black_24dp.svg" />
+                            <entry key="outputName" value="ic_photo_camera_black_24dp" />
+                            <entry key="sourceFile" value="E:\Downloads\photo_camera_black_24dp.svg" />
                           </map>
                         </option>
                       </PersistentState>

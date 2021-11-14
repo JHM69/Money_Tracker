@@ -44,12 +44,12 @@ public class Util {
     }
 
     public static String getFormattedCurrency(float number) {
-        //String countryCode = PreferenceManager.getDefaultSharedPreferences(ExpenseTrackerApp.getContext()).getString(ExpenseTrackerApp.getContext().getString(R.string.pref_country_key), ExpenseTrackerApp.getContext().getString(R.string.default_country));
+        String countryCode = PreferenceManager.getDefaultSharedPreferences(ExpenseTrackerApp.getContext()).getString(ExpenseTrackerApp.getContext().getString(R.string.pref_country_key), ExpenseTrackerApp.getContext().getString(R.string.default_country));
         Locale locale = new Locale("EN", "us");
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
         String formattedNumber = numberFormat.format(number);
         String symbol = numberFormat.getCurrency().getSymbol(locale);
-        return formattedNumber.replace(symbol, " ৳");
+        return formattedNumber.replace(symbol, " $");
     }
 
     public static String getCurrentDateFormat() {

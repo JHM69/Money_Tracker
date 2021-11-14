@@ -39,7 +39,7 @@ import java.util.Objects;
 public class NewExpenseFragment extends DialogFragment implements View.OnClickListener{
 
     private TextView tvTitle;
-    private Button btnDate;
+    private Button btnDate, scan;
     private Spinner spCategory;
     private EditText etDescription;
     private EditText etTotal;
@@ -66,6 +66,7 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
         View rootView = inflater.inflate(R.layout.fragment_dialog_new_expense, container, false);
         tvTitle = (TextView)rootView.findViewById(R.id.tv_title);
         btnDate = (Button)rootView.findViewById(R.id.btn_date);
+        scan = (Button)rootView.findViewById(R.id.scan);
         spCategory = (Spinner)rootView.findViewById(R.id.sp_categories);
         etDescription = (EditText)rootView.findViewById(R.id.et_description);
         etTotal = (EditText)rootView.findViewById(R.id.et_total);
@@ -88,13 +89,26 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
         }
         setModeViews();
         btnDate.setOnClickListener(this);
-        (getView().findViewById(R.id.btn_cancel)).setOnClickListener(this);
+        (Objects.requireNonNull(getView()).findViewById(R.id.btn_cancel)).setOnClickListener(this);
         (getView().findViewById(R.id.btn_save)).setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
     private void setModeViews() {
         List<Category> categoriesList = Category.getCategoriesExpense();
+        if(categoriesList.size()==0){
+            Category category1 = new Category("Rent", IExpensesType.MODE_EXPENSES);
+            Category category2 = new Category("Food", IExpensesType.MODE_EXPENSES);
+            Category category3 = new Category("Transport", IExpensesType.MODE_EXPENSES);
+
+            categoriesList.add(category1);
+            categoriesList.add(category2);
+            categoriesList.add(category3);
+
+            RealmManager.getInstance().save(category1, Category.class);
+            RealmManager.getInstance().save(category2, Category.class);
+            RealmManager.getInstance().save(category3, Category.class);
+        }
         Category[] categoriesArray = new Category[categoriesList.size()];
         categoriesArray = categoriesList.toArray(categoriesArray);
         mCategoriesSpinnerAdapter = new CategoriesSpinnerAdapter(getActivity(), categoriesArray);
@@ -140,9 +154,15 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
             showDateDialog();
         } else if (view.getId() == R.id.btn_cancel) {
             dismiss();
+        }else if (view.getId() == R.id.scan) {
+            startScan();
         } else if (view.getId() == R.id.btn_save) {
             onSaveExpense();
         }
+    }
+
+    private void startScan() {
+
     }
 
     private void onSaveExpense() {
@@ -166,8 +186,9 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
                 if (DateUtils.isToday(selectedDate)) {
                     Intent i = new Intent(getActivity(), ExpensesWidgetProvider.class);
                     i.setAction(ExpensesWidgetService.UPDATE_WIDGET);
-                    getActivity().sendBroadcast(i);
+                    Objects.requireNonNull(getActivity()).sendBroadcast(i);
                 }
+                assert getTargetFragment() != null;
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                 dismiss();
             } else {

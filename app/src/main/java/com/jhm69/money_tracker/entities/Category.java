@@ -22,7 +22,7 @@ public class Category extends RealmObject {
     public Category() {
     }
 
-    public Category(String name, @IExpensesType int type) {
+    public Category(String name, int type) {
         this.name = name;
         this.type = type;
     }
