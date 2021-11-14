@@ -90,6 +90,8 @@ public class ExpenseDetailFragment extends BaseFragment implements View.OnClickL
         newExpenseFragment.show(getFragmentManager(), "EDIT_EXPENSE");
     }
 
+
+
     private void setWeekChart() {
         List<Date> dateList = DateUtils.getWeekDates();
         List<String> days = new ArrayList<>();

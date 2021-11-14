@@ -65,12 +65,8 @@ public class ExpensesContainerFragment extends MainFragment implements ExpensesF
         super.onActivityCreated(savedInstanceState);
         mMainActivityListener.setTitle(getString(R.string.expenses));
         mMainActivityListener.setMode(MainActivity.NAVIGATION_MODE_TABS);
-        mMainActivityListener.setFAB(R.drawable.ic_add_black_24dp, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAddNewExpense();
-            }
-        });
+        mMainActivityListener.setFAB(R.drawable.ic_add_black_24dp, v -> onAddNewExpense());
+
 
         expensesViewPagerAdapter = new ExpensesViewPagerAdapter(getChildFragmentManager());
         expensesViewPagerAdapter.addFrag(ExpensesFragment.newInstance(IDateMode.MODE_TODAY), getString(R.string.today));

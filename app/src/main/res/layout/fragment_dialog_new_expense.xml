@@ -45,7 +45,7 @@
         android:layout_marginEnd="16dp"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/scan">
+        card_view:layout_constraintTop_toBottomOf="@+id/scann">
 
         <LinearLayout
             android:id="@+id/health"
@@ -171,7 +171,7 @@
         card_view:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 
     <Button
-        android:id="@+id/scan"
+        android:id="@+id/scann"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

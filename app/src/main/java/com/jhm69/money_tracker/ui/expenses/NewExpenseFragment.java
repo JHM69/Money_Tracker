@@ -67,7 +67,7 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
         View rootView = inflater.inflate(R.layout.fragment_dialog_new_expense, container, false);
         tvTitle = (TextView)rootView.findViewById(R.id.tv_title);
         btnDate = (Button)rootView.findViewById(R.id.btn_date);
-        scan = (Button)rootView.findViewById(R.id.scan);
+        scan = (Button)rootView.findViewById(R.id.scann);
         spCategory = (Spinner)rootView.findViewById(R.id.sp_categories);
         etDescription = (EditText)rootView.findViewById(R.id.et_description);
         etTotal = (EditText)rootView.findViewById(R.id.et_total);
@@ -88,6 +88,7 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
         if (getArguments() != null) {
             mUserActionMode = getArguments().getInt(IUserActionsMode.MODE_TAG) == IUserActionsMode.MODE_CREATE ? IUserActionsMode.MODE_CREATE : IUserActionsMode.MODE_UPDATE;
         }
+        scan.setOnClickListener(view -> startActivity(new Intent(getContext(), ScanReceipt.class)));
         setModeViews();
         btnDate.setOnClickListener(this);
         (Objects.requireNonNull(getView()).findViewById(R.id.btn_cancel)).setOnClickListener(this);
@@ -97,19 +98,18 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
     @SuppressLint("SetTextI18n")
     private void setModeViews() {
         List<Category> categoriesList = new ArrayList<>();
-        Category.getCategoriesExpense();
+        categoriesList = Category.getCategoriesExpense();
         if(categoriesList.size()==0){
             Category category1 = new Category("Rent", IExpensesType.MODE_EXPENSES);
             Category category2 = new Category("Food", IExpensesType.MODE_EXPENSES);
             Category category3 = new Category("Transport", IExpensesType.MODE_EXPENSES);
-
-            categoriesList.add(category1);
-            categoriesList.add(category2);
-            categoriesList.add(category3);
+            Category category4 = new Category("Receipt", IExpensesType.MODE_EXPENSES);
 
             RealmManager.getInstance().save(category1, Category.class);
             RealmManager.getInstance().save(category2, Category.class);
             RealmManager.getInstance().save(category3, Category.class);
+            RealmManager.getInstance().save(category4, Category.class);
+            categoriesList = Category.getCategoriesExpense();
         }
         Category[] categoriesArray = new Category[categoriesList.size()];
         categoriesArray = categoriesList.toArray(categoriesArray);
@@ -156,16 +156,13 @@ public class NewExpenseFragment extends DialogFragment implements View.OnClickLi
             showDateDialog();
         } else if (view.getId() == R.id.btn_cancel) {
             dismiss();
-        }else if (view.getId() == R.id.scan) {
-            startScan();
+        }else if (view.getId() == R.id.scann) {
+            Objects.requireNonNull(getContext()).startActivity(new Intent(getContext(), ScanReceipt.class));
         } else if (view.getId() == R.id.btn_save) {
             onSaveExpense();
         }
     }
 
-    private void startScan() {
-
-    }
 
     private void onSaveExpense() {
         if (mCategoriesSpinnerAdapter.getCount() > 0 ) {

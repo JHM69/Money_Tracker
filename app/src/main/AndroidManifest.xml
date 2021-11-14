@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jhm69.money_tracker">
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -12,6 +12,10 @@
         android:label="Money Tracker"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
+
         <activity
             android:name="com.jhm69.money_tracker.ui.MainActivity"
             android:label="Money Tracker"
@@ -22,6 +26,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.jhm69.money_tracker.ui.expenses.ScanReceipt"
+            android:label="Scan Receipt"
+            android:theme="@style/AppTheme.NoActionBar.TransparentStatusBar">
         </activity>
 
         <receiver

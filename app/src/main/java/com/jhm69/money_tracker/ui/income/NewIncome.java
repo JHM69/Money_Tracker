@@ -120,19 +120,17 @@ public class NewIncome extends DialogFragment implements View.OnClickListener{
     @SuppressLint("SetTextI18n")
     private void setModeViews() {
         List<Category> categoriesList  = new ArrayList<>();
-        Category.getCategoriesExpense();
+        categoriesList = Category.getCategoriesIncome();
         if(categoriesList.size()==0){
             Category category1 = new Category("Job", IIncomesType.MODE_INCOME);
             Category category2 = new Category("Business", IIncomesType.MODE_INCOME);
             Category category3 = new Category("Scholarship", IIncomesType.MODE_INCOME);
 
-            categoriesList.add(category1);
-            categoriesList.add(category2);
-            categoriesList.add(category3);
-
             RealmManager.getInstance().save(category1, Category.class);
             RealmManager.getInstance().save(category2, Category.class);
             RealmManager.getInstance().save(category3, Category.class);
+
+            categoriesList = Category.getCategoriesExpense();
         }
 
         Category[] categoriesArray = new Category[categoriesList.size()];

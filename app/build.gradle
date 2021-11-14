@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -12,6 +11,13 @@ android {
         javaCompileOptions {
             annotationProcessorOptions.includeCompileClasspath = true
         }
+
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -41,6 +47,15 @@ dependencies {
     implementation 'io.realm:realm-android:0.82.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.1.4'
 
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+
+    //CameraX
+    implementation "androidx.camera:camera-core:1.1.0-alpha07"
+    implementation "androidx.camera:camera-camera2:1.1.0-alpha07"
+    implementation "androidx.camera:camera-lifecycle:1.1.0-alpha07"
+    implementation "androidx.camera:camera-view:1.0.0-alpha27"
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha27"
 
 
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:17.0.0'
 }
